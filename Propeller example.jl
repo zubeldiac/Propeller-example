@@ -28,7 +28,7 @@ import FLOWVPM as vpm
 run_name        = "propeller-example"       # Name of this simulation
 
 save_path       = run_name                  # Where to save this simulation
-paraview        = true                      # Whether to visualize with Paraview
+
 
 
 # ----------------- GEOMETRY PARAMETERS ----------------------------------------
@@ -253,24 +253,4 @@ uns.run_simulation(simulation, nsteps;
                     save_path=save_path,
                     run_name=run_name,
                     );
-
-
-
-
-# ----------------- 6) VISUALIZATION -------------------------------------------
-if paraview
-    println("Calling Paraview...")
-
-    # Files to open in Paraview
-    files = joinpath(save_path, run_name*"_pfield...xmf;")
-    for bi in 1:B
-        global files
-        files *= run_name*"_Rotor_Blade$(bi)_loft...vtk;"
-        files *= run_name*"_Rotor_Blade$(bi)_vlm...vtk;"
-    end
-
-    # Call Paraview
-    run(`paraview --data=$(files)`)
-
-end
 
